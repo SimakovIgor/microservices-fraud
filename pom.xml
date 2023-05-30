@@ -6,11 +6,7 @@
 
     <artifactId>microservices-fraud</artifactId>
     <version>1.0-SNAPSHOT</version>
-
     <name>[Simakov] Microservices Fraud</name>
-
-    <properties>
-    </properties>
 
     <parent>
         <groupId>ru.simakov</groupId>
@@ -31,6 +27,10 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>ru.simakov</groupId>
+            <artifactId>jpa</artifactId>
         </dependency>
     </dependencies>
 </project>

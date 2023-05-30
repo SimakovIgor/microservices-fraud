@@ -8,6 +8,7 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
+import ru.simakov.BaseEntity;
 
 @SuperBuilder
 @Accessors(chain = true)
@@ -20,5 +21,4 @@ import lombok.experimental.SuperBuilder;
 public class FraudCheckHistory extends BaseEntity {
     private Long customerId;
     private Boolean isFraudster;
-
 }
