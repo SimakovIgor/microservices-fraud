@@ -4,8 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ru.simakov.model.dto.FraudCheckResponse;
+import ru.simakov.clients.fraud.FraudCheckResponse;
 import ru.simakov.service.FraudCheckService;
 
 @RestController
@@ -15,7 +16,7 @@ public class FraudCheckController {
     private final FraudCheckService fraudCheckService;
 
     @GetMapping
-    public FraudCheckResponse isFraudster(@RequestHeader("customerId") Long customerId) {
+    public FraudCheckResponse isFraudster(@RequestHeader Long customerId) {
         return fraudCheckService.isFraudulentCustomer(customerId);
     }
 }

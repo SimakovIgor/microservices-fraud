@@ -36,5 +36,9 @@
             <groupId>ru.simakov</groupId>
             <artifactId>jpa</artifactId>
         </dependency>
+        <dependency>
+            <groupId>ru.simakov</groupId>
+            <artifactId>fraud</artifactId>
+        </dependency>
     </dependencies>
 </project>
