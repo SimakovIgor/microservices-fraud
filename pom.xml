@@ -28,6 +28,7 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
@@ -45,9 +46,15 @@
             <groupId>ru.simakov.commons.clients</groupId>
             <artifactId>fraud</artifactId>
         </dependency>
+
         <dependency>
             <groupId>ru.simakov.commons.starter</groupId>
-            <artifactId>open-telemetry-jaeger</artifactId>
+            <artifactId>open-telemetry-jaeger-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>ru.simakov.commons.starter</groupId>
+            <artifactId>testing-starter</artifactId>
         </dependency>
     </dependencies>
 
