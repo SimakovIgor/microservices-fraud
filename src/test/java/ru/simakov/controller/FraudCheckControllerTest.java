@@ -6,10 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import ru.simakov.clients.fraud.FraudCheckResponse;
 import ru.simakov.controller.support.IntegrationTestBase;
 
@@ -38,13 +35,17 @@ class FraudCheckControllerTest extends IntegrationTestBase {
                 testRestTemplate.exchange("/api/v1/fraud-check", HttpMethod.GET,
                         entity, FraudCheckResponse.class);
 
-        assertThat(responseEntity).isNotNull();
+        assertThat(responseEntity.getStatusCode())
+                .isEqualTo(HttpStatus.OK);
         assertThat(fraudCheckHistoryRepository.findAll())
                 .first()
                 .satisfies(fraudCheckHistory -> {
-                    assertThat(fraudCheckHistory.getCustomerId()).isEqualTo(1L);
-                    assertThat(fraudCheckHistory.getId()).isNotNull();
-                    assertThat(fraudCheckHistory.getIsFraudster()).isFalse();
+                    assertThat(fraudCheckHistory.getCustomerId())
+                            .isEqualTo(1L);
+                    assertThat(fraudCheckHistory.getId())
+                            .isNotNull();
+                    assertThat(fraudCheckHistory.getIsFraudster())
+                            .isFalse();
                 });
     }
 
