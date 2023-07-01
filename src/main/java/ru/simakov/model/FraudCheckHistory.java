@@ -1,4 +1,4 @@
-package ru.simakov.model.entity;
+package ru.simakov.model;
 
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
