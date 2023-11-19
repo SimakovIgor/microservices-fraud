@@ -13,19 +13,19 @@ public class FraudCheckService {
 
     private static FraudCheckResponse mapFraudCheckResponse(final FraudCheckHistory fraudCheckHistory) {
         return FraudCheckResponse.builder()
-                .id(fraudCheckHistory.getId())
-                .isFraudster(fraudCheckHistory.getIsFraudster())
-                .build();
+            .id(fraudCheckHistory.getId())
+            .isFraudster(fraudCheckHistory.getIsFraudster())
+            .build();
     }
 
     private static FraudCheckHistory buildFraudCheckHistory(final Long customerId) {
         return FraudCheckHistory.builder()
-                .customerId(customerId)
-                .isFraudster(false)
-                .build();
+            .customerId(customerId)
+            .isFraudster(false)
+            .build();
     }
 
-    public FraudCheckResponse isFraudulentCustomer(final Long customerId) {
+    public FraudCheckResponse checkFraud(final Long customerId) {
         var fraudCheckHistory = fraudCheckHistoryRepository.save(buildFraudCheckHistory(customerId));
         return mapFraudCheckResponse(fraudCheckHistory);
     }

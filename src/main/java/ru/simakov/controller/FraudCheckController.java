@@ -17,9 +17,8 @@ public class FraudCheckController {
     private final FraudCheckService fraudCheckService;
 
     @GetMapping
-    public FraudCheckResponse isFraudster(
-            final @RequestHeader Long customerId) {
+    public FraudCheckResponse checkForFraud(final @RequestHeader Long customerId) {
         log.info("New check isFraudster for customerId {}", customerId);
-        return fraudCheckService.isFraudulentCustomer(customerId);
+        return fraudCheckService.checkFraud(customerId);
     }
 }

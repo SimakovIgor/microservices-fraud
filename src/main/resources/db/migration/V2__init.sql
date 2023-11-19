@@ -5,5 +5,5 @@ CREATE TABLE IF NOT EXISTS fraud_check_history
     create_date  TIMESTAMP WITHOUT TIME ZONE             NOT NULL,
     customer_id  BIGINT,
     is_fraudster BOOLEAN,
-    CONSTRAINT pk_fraudcheckhistory PRIMARY KEY (id)
+    CONSTRAINT pk_fraud_check_history PRIMARY KEY (id)
 );
