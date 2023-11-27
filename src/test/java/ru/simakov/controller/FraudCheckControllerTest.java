@@ -1,53 +1,44 @@
 package ru.simakov.controller;
 
-import lombok.SneakyThrows;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.reactive.server.WebTestClient;
 import ru.simakov.clients.fraud.FraudCheckResponse;
-import ru.simakov.controller.support.IntegrationTestBase;
+import ru.simakov.model.FraudCheckHistory;
+import ru.simakov.support.IntegrationTestBase;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class FraudCheckControllerTest extends IntegrationTestBase {
-    private RestTemplateBuilder restTemplateBuilder;
+    @Autowired
+    private WebTestClient webTestClient;
 
-    @BeforeEach
-    void beforeEach() {
-        this.restTemplateBuilder = new RestTemplateBuilder()
-            .rootUri("http://localhost:" + localPort);
-    }
-
-    @SneakyThrows
     @Test
     void registerCustomer() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("customerId", "1");
-
-        HttpEntity<String> entity = new HttpEntity<>(headers);
-        TestRestTemplate testRestTemplate = new TestRestTemplate(restTemplateBuilder);
-        ResponseEntity<FraudCheckResponse> responseEntity =
-            testRestTemplate.exchange("/api/v1/fraud-check", HttpMethod.GET,
-                entity, FraudCheckResponse.class);
-
-        assertThat(responseEntity.getStatusCode())
-            .isEqualTo(HttpStatus.OK);
+        assertThat(getFraudCheckResponse("999"))
+            .isNotNull();
         assertThat(fraudCheckHistoryRepository.findAll())
             .first()
             .satisfies(fraudCheckHistory -> {
-                assertThat(fraudCheckHistory.getCustomerId())
-                    .isEqualTo(1L);
                 assertThat(fraudCheckHistory.getId())
                     .isNotNull();
-                assertThat(fraudCheckHistory.getIsFraudster())
-                    .isFalse();
+                assertThat(fraudCheckHistory)
+                    .extracting(FraudCheckHistory::getCustomerId, FraudCheckHistory::getIsFraudster)
+                    .containsExactly(999L, false);
             });
+    }
+
+    private FraudCheckResponse getFraudCheckResponse(final String customerId) {
+        return webTestClient.get()
+            .uri("http://localhost:" + localPort + "/api/v1/fraud-check")
+            .header("customerId", customerId)
+            .accept(MediaType.APPLICATION_JSON)
+            .exchange()
+            .expectStatus().isOk()
+            .expectBody(FraudCheckResponse.class)
+            .returnResult()
+            .getResponseBody();
     }
 
 }
