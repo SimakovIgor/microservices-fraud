@@ -6,18 +6,15 @@ import org.springframework.http.MediaType
 
 Contract.make {
     request {
-        url '/api/v1/fraud-check'
+        url '/api/v1/fraud-check?customerId=1'
         method GET()
-        headers {
-            header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
-            header("customerId", 1L)
-        }
+
     }
     response {
         status 200
         headers {
             header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
         }
-        body(id: 1L, "isFraudster": false)
+        body(id: 1L, "isFraud": false)
     }
 }

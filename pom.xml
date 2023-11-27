@@ -6,7 +6,7 @@
 
     <artifactId>microservices-fraud</artifactId>
     <groupId>ru.simakov.microservices</groupId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <name>[Simakov] Microservices Fraud</name>
     <packaging>jar</packaging>
 
@@ -32,6 +32,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ru.simakov.commons.model</groupId>
+            <artifactId>commons-model-internal</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>

@@ -2,9 +2,8 @@ package ru.simakov.controller;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import ru.simakov.clients.fraud.FraudCheckResponse;
+import ru.simakov.commons.model.internal.fraud.FraudCheckResponse;
 import ru.simakov.model.FraudCheckHistory;
 import ru.simakov.support.IntegrationTestBase;
 
@@ -31,9 +30,12 @@ class FraudCheckControllerTest extends IntegrationTestBase {
 
     private FraudCheckResponse getFraudCheckResponse(final String customerId) {
         return webTestClient.get()
-            .uri("http://localhost:" + localPort + "/api/v1/fraud-check")
-            .header("customerId", customerId)
-            .accept(MediaType.APPLICATION_JSON)
+            .uri(uriBuilder -> uriBuilder
+                .host("localhost")
+                .port(localPort)
+                .pathSegment("api", "v1", "fraud-check")
+                .queryParam("customerId", customerId)
+                .build())
             .exchange()
             .expectStatus().isOk()
             .expectBody(FraudCheckResponse.class)

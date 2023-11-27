@@ -2,7 +2,7 @@ package ru.simakov.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.simakov.clients.fraud.FraudCheckResponse;
+import ru.simakov.commons.model.internal.fraud.FraudCheckResponse;
 import ru.simakov.model.FraudCheckHistory;
 import ru.simakov.repository.FraudCheckHistoryRepository;
 
@@ -14,7 +14,7 @@ public class FraudCheckService {
     private static FraudCheckResponse mapFraudCheckResponse(final FraudCheckHistory fraudCheckHistory) {
         return FraudCheckResponse.builder()
             .id(fraudCheckHistory.getId())
-            .isFraudster(fraudCheckHistory.getIsFraudster())
+            .isFraud(fraudCheckHistory.getIsFraudster())
             .build();
     }
 
@@ -26,7 +26,8 @@ public class FraudCheckService {
     }
 
     public FraudCheckResponse checkFraud(final Long customerId) {
-        var fraudCheckHistory = fraudCheckHistoryRepository.save(buildFraudCheckHistory(customerId));
-        return mapFraudCheckResponse(fraudCheckHistory);
+        final FraudCheckHistory fraudCheckHistory = buildFraudCheckHistory(customerId);
+        final FraudCheckHistory saved = fraudCheckHistoryRepository.save(fraudCheckHistory);
+        return mapFraudCheckResponse(saved);
     }
 }
