@@ -7,7 +7,7 @@
     <artifactId>microservices-fraud</artifactId>
     <groupId>ru.simakov.microservices</groupId>
     <version>1.0.0-SNAPSHOT</version>
-    <name>[Simakov] Microservices Fraud</name>
+
     <packaging>jar</packaging>
 
     <parent>
@@ -37,10 +37,10 @@
             <groupId>ru.simakov.commons.model</groupId>
             <artifactId>commons-model-internal</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -60,10 +60,10 @@
             <artifactId>fraud</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>ru.simakov.commons.starter</groupId>
-            <artifactId>open-telemetry-jaeger-starter</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>ru.simakov.commons.starter</groupId>-->
+<!--            <artifactId>open-telemetry-jaeger-starter</artifactId>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>ru.simakov.commons.starter</groupId>
