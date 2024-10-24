@@ -19,7 +19,7 @@ public class FraudCheckController {
     private final FraudCheckService fraudCheckService;
 
     @GetMapping("/api/v1/fraud-check")
-    public FraudCheckResponse checkForFraud(final @RequestParam Long customerId) {
+    public FraudCheckResponse checkForFraud(final @RequestParam("customerId") Long customerId) {
         return fraudCheckService.checkFraud(customerId);
     }
 
