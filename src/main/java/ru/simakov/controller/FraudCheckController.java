@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 @Slf4j
 public class FraudCheckController {
+    public static final String HELLO_WORLD = "Hello World!";
     private final FraudCheckService fraudCheckService;
 
     @GetMapping("/api/v1/fraud-check")
@@ -24,9 +25,15 @@ public class FraudCheckController {
     }
 
     @GetMapping("/health")
-    public String checkForFraud() {
+    public String healthCheck() {
         final LocalDateTime now = LocalDateTime.now();
         log.info("Healthy {}", now);
         return "Healthy: " + now;
     }
+
+    @GetMapping("/hello")
+    public String hello() {
+        return HELLO_WORLD;
+    }
+
 }
