@@ -10,6 +10,7 @@ import ru.simakov.commons.model.internal.fraud.FraudCheckResponse;
 import ru.simakov.service.FraudCheckService;
 
 import java.time.LocalDateTime;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping
@@ -34,6 +35,29 @@ public class FraudCheckController {
     @GetMapping("/hello")
     public String hello() {
         return HELLO_WORLD;
+    }
+
+    @GetMapping("/simulate")
+    public String simulateLoad(@RequestParam(name = "cpuTime") final long cpuTime,
+                               @RequestParam(name = "usleepTime") final long usleepTime) throws InterruptedException {
+        final long startTime = System.nanoTime();
+
+        simulateCpuLoad(cpuTime);
+
+        final long endTime = System.nanoTime();
+        final long actualCpuTime = TimeUnit.NANOSECONDS.toMillis(endTime - startTime);
+
+        Thread.sleep(usleepTime);
+
+        return String.format("Simulated CPU load: %d ms, Sleep time: %d ms", actualCpuTime, usleepTime);
+    }
+
+    @SuppressWarnings({"EmptyBlock", "PMD.EmptyControlStatement"})
+    private void simulateCpuLoad(final long cpuTime) {
+        final long endTime = System.nanoTime() + TimeUnit.SECONDS.toNanos(cpuTime);
+        while (System.nanoTime() < endTime) {
+
+        }
     }
 
 }
