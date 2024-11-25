@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.simakov.commons.model.internal.fraud.FraudCheckResponse;
 import ru.simakov.service.FraudCheckService;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 @RestController
@@ -18,6 +21,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class FraudCheckController {
     public static final String HELLO_WORLD = "Hello World!";
+    public static final Random RANDOM = new Random();
     private final FraudCheckService fraudCheckService;
 
     @GetMapping("/api/v1/fraud-check")
@@ -54,9 +58,17 @@ public class FraudCheckController {
 
     @SuppressWarnings({"EmptyBlock", "PMD.EmptyControlStatement"})
     private void simulateCpuLoad(final long cpuTime) {
-        final long endTime = System.nanoTime() + TimeUnit.SECONDS.toNanos(cpuTime);
-        while (System.nanoTime() < endTime) {
-
+        final long endTime = System.nanoTime() + TimeUnit.MILLISECONDS.toNanos(cpuTime);
+        byte[] data = new byte[256];
+        try {
+            MessageDigest md5 = MessageDigest.getInstance("MD5");
+            while (System.nanoTime() < endTime) {
+                RANDOM.nextBytes(data);
+                md5.update(data);
+                md5.digest();
+            }
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("MD5 algorithm not available", e);
         }
     }
 
